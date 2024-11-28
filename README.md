@@ -1,3 +1,2 @@
 # odk_basis_app
-
-A new Flutter project.
+This is model project focused on the ODK module but for flutter Applications
