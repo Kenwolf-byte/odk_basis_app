@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:odk_basis_app/forms_page.dart';
 
 class ProjectsPage extends StatelessWidget {
   final String serverUrl;
   final String token;
 
-  const ProjectsPage({required this.serverUrl, required this.token});
+  const ProjectsPage({super.key, required this.serverUrl, required this.token});
 
   Future<List> fetchProjects() async {
     try {
@@ -30,16 +29,16 @@ class ProjectsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Projects')),
+      appBar: AppBar(title: const Text('Projects')),
       body: FutureBuilder<List>(
         future: fetchProjects(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No projects found'));
+            return const Center(child: Text('No projects found'));
           }
 
           final projects = snapshot.data!;
