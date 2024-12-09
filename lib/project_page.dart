@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
+import 'package:odk_basis_app/forms_page.dart';
+import 'package:odk_basis_app/services/odk_service.dart';
 
 class ProjectsPage extends StatelessWidget {
   final String serverUrl;
@@ -10,20 +10,7 @@ class ProjectsPage extends StatelessWidget {
   const ProjectsPage({super.key, required this.serverUrl, required this.token});
 
   Future<List> fetchProjects() async {
-    try {
-      final response = await http.get(
-        Uri.parse('$serverUrl/v1/projects'),
-        headers: {'Authorization': 'Bearer $token'},
-      );
-
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else {
-        throw Exception('Failed to load projects: ${response.reasonPhrase}');
-      }
-    } catch (e) {
-      throw Exception('Network error: $e');
-    }
+    return await fetchProjectsFromODK(serverUrl, token);
   }
 
   @override
